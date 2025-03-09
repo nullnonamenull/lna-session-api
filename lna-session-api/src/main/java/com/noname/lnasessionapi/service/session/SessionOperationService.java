@@ -1,4 +1,4 @@
-package com.noname.lnasessionapi.service;
+package com.noname.lnasessionapi.service.session;
 
 
 import com.noname.lnasessionapi.data.Session;

@@ -1,6 +1,6 @@
 package com.noname.lnasessionapi.controller;
 
-import com.noname.lnasessionapi.service.SessionService;
+import com.noname.lnasessionapi.service.session.SessionService;
 import com.noname.lnasessiondto.SessionMessagesResponseDTO;
 import com.noname.lnasessiondto.SessionResponseDTO;
 import lombok.RequiredArgsConstructor;

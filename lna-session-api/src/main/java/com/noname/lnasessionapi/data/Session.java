@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -19,7 +17,7 @@ import java.util.UUID;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column
@@ -30,10 +28,6 @@ public class Session {
 
     @Column
     private OffsetDateTime closedAt;
-
-    @OrderBy("sentAt ASC")
-    @OneToMany(mappedBy = "session", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Message> messages = new ArrayList<>();
 
     @PrePersist
     private void onCreate() {

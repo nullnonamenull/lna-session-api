@@ -1,6 +1,8 @@
-package com.noname.lnasessionapi.service;
+package com.noname.lnasessionapi.service.session;
 
+import com.noname.lnasessionapi.data.Message;
 import com.noname.lnasessionapi.data.Session;
+import com.noname.lnasessionapi.service.message.SessionMessageRetrievalService;
 import com.noname.lnasessionapi.util.MappingUtils;
 import com.noname.lnasessiondto.SessionMessagesResponseDTO;
 import com.noname.lnasessiondto.SessionResponseDTO;
@@ -19,6 +21,7 @@ public class SessionService {
 
     private final SessionOperationService sessionOperationService;
     private final SessionRetrievalService sessionRetrievalService;
+    private final SessionMessageRetrievalService sessionMessageRetrievalService;
 
     public SessionResponseDTO createSession() {
         Session session = Session.builder()
@@ -53,11 +56,12 @@ public class SessionService {
     }
 
     public SessionMessagesResponseDTO getSessionMessagesResponseDTO(final UUID sessionId) {
-        Session sessionWithMessages = sessionRetrievalService.getSessionWithAllMessages(sessionId);
+        Session sessionWithMessages = sessionRetrievalService.getSessionById(sessionId);
+        List<Message> sessionMessages = sessionMessageRetrievalService.retrieveAllSessionMessages(sessionId);
 
         SessionMessagesResponseDTO result;
         try {
-            result = MappingUtils.sessionToSessionMessagesResponseDTO(sessionWithMessages);
+            result = MappingUtils.sessionToSessionMessagesResponseDTO(sessionWithMessages, sessionMessages);
         } catch (Exception e) {
             log.error("An error occurred while mapping the session with messages.");
             throw new RuntimeException("Failed to map the session with messages. Please check the logs for details.", e);

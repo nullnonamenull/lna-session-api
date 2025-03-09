@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -17,8 +18,8 @@ import java.time.OffsetDateTime;
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private String content;
@@ -31,10 +32,12 @@ public class Message {
     private OffsetDateTime sentAt;
 
     @Column(nullable = false)
-    private String agent;
+    private UUID sessionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id", nullable = false)
-    private Session session;
-
+    @PrePersist
+    private void onCreate() {
+        if (sentAt == null) {
+            sentAt = OffsetDateTime.now();
+        }
+    }
 }

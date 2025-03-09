@@ -1,4 +1,4 @@
-package com.noname.lnasessionapi.service;
+package com.noname.lnasessionapi.service.session;
 
 
 import com.noname.lnasessionapi.data.Session;
@@ -20,7 +20,7 @@ public class SessionRetrievalService {
         return sessionRepository.getSessionsByClosedAtNull();
     }
 
-    public Session getSessionWithAllMessages(final UUID sessionId) {
+    public Session getSessionById(final UUID sessionId) {
         return sessionRepository.getSessionById(sessionId)
                 .orElseThrow();
     }

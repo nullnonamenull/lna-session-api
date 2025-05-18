@@ -2,11 +2,9 @@ package com.noname.lnasessionapi.util;
 
 import com.noname.lnasessionapi.data.Message;
 import com.noname.lnasessionapi.data.Session;
-import com.noname.lnasessionapi.data.enumerated.Role;
 import com.noname.lnasessiondto.MessageDTO;
 import com.noname.lnasessiondto.SessionMessagesResponseDTO;
 import com.noname.lnasessiondto.SessionResponseDTO;
-import com.noname.lnasessiondto.enumerated.MessageAuthor;
 import lombok.NonNull;
 
 import java.util.List;
@@ -36,8 +34,9 @@ public class MappingUtils {
     @NonNull
     public static MessageDTO messageToMessageDTO(final Message message) {
         return MessageDTO.builder()
+                .sessionId(message.getSessionId())
                 .content(message.getContent())
-                .sender(MessageAuthor.valueOf(message.getRole().name()))
+                .role(message.getRole())
                 .build();
     }
 
@@ -45,7 +44,7 @@ public class MappingUtils {
     public static Message messageDTOToMessage(final MessageDTO messageDTO) {
         return Message.builder()
                 .sessionId(messageDTO.getSessionId())
-                .role(Role.valueOf(messageDTO.getSender().name()))
+                .role(messageDTO.getRole())
                 .content(messageDTO.getContent())
                 .build();
     }

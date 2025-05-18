@@ -1,6 +1,6 @@
 package com.noname.lnasessionapi.data;
 
-import com.noname.lnasessionapi.data.enumerated.Role;
+import com.noname.lnasessiondto.enumerated.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
